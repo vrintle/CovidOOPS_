@@ -30,8 +30,10 @@ public:
   void choose() {
     int id;
     cout << "Enter VaccineID: "; cin >> id;
+    string pswd;
+    cout << "Enter password: "; cin >> pswd;
 
-    if(id <= User::obj_count && id > 0) {
+    if(id <= User::obj_count && id > 0 && User::users_store[id - 1]->okay(pswd)) {
       User* user = User::users_store[id - 1];      
       cout << "\nUSER MENU\n---------\n\n";
       for(int i = 0; i < options.size(); i++) {
@@ -46,6 +48,8 @@ public:
       } else if(choice == 2) {
         user->edit_details();
       }
+    } else {
+      cout << "Sorry, the password doesn't matches with the VaccineID. Please try again!\n";
     }
   }
 };
@@ -112,7 +116,11 @@ public:
       if(c == 'y' || c == 'Y') {
         User u;
         User::users_store.push_back(&u);
-        User::users_queue.push_back(&u);
+        User::users_queue.push(&u);
+            
+        // for(int i = 0; i < User::users_store.size(); i++) {
+        //   (*User::users_store[i]).short_info();
+        // }
       }
     } else if(choice == 2) {
       UserMenu user_menu;

@@ -20,7 +20,7 @@ public:
   void execute_allotment(int shots) {
     int t = shots;
     while(shots > 0 && !User::users_queue.empty()) {
-      User* u = User::users_queue.front();
+      User* u = User::users_queue.top();
       // checking if the user is eligible?
       if(u->age >= min_age) {
         u->center_id = center_id;
@@ -30,7 +30,7 @@ public:
       } else {
         u->is_eligible = false;
       }
-      User::users_queue.pop_front();
+      User::users_queue.pop();
     }
 
     cout << "Success: " << t-shots << "Vaccine shots are confirmed for allotment at the specified medical center. There are remaining " << shots << " shots unalloted.\n";
@@ -38,35 +38,35 @@ public:
 
   void display_registrations() {
     cout << "Registrations list:\n\n";
-    deque<User*> temp;
+    priority_queue<User*, vector<User*>, C> temp;
 
     while(!User::users_queue.empty()) {
-      User* u = User::users_queue.front();
+      User* u = User::users_queue.top();
       u->short_info();
-      temp.push_back( User::users_queue.front() );
-      User::users_queue.pop_front();
+      temp.push( User::users_queue.top() );
+      User::users_queue.pop();
     }
 
     while(!temp.empty()) {
-      User::users_queue.push_back( temp.front() );
-      temp.pop_front();
+      User::users_queue.push( temp.top() );
+      temp.pop();
     }
   }
 
   void edit_min_age(int new_min) {
     min_age = new_min;
-    deque<User*> temp;
+    priority_queue<User*, vector<User*>, C> temp;
 
     while(!User::users_queue.empty()) {
-      if(User::users_queue.front()->age >= min_age) {
-        temp.push_back( User::users_queue.front() );
+      if(User::users_queue.top()->age >= min_age) {
+        temp.push( User::users_queue.top() );
       }
-      User::users_queue.pop_front();
+      User::users_queue.pop();
     }
 
     while(!temp.empty()) {
-      User::users_queue.push_back( temp.front() );
-      temp.pop_front();
+      User::users_queue.push( temp.top() );
+      temp.pop();
     }
   }
 

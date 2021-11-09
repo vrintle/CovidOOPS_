@@ -4,6 +4,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class C;
+
 class User {
   // personal data members
   int idx;
@@ -19,9 +21,10 @@ class User {
   bool is_eligible;
 
 public:
-  static deque<User*> users_queue;
+  // static deque<User*> users_queue;
   static int obj_count;
   static vector<User*> users_store;
+  static priority_queue<User*, vector<User*>, C> users_queue;
 
   User(int _) { }
   User() {
@@ -79,10 +82,19 @@ public:
   }
 
   friend class Admin;
+  friend class C;
 };
 
-deque<User*> User::users_queue;
-int User::obj_count;
+class C {
+public:
+  bool operator()(User* a, User* b) {
+    return a->age < b->age;
+  }
+};
+
+// deque<User*> User::users_queue;
+int User::obj_count = 0;
 vector<User*> User::users_store;
+priority_queue<User*, vector<User*>, C> User::users_queue;
 
 #endif
