@@ -18,4 +18,4 @@ The three custom headers included in `main.cpp` are:
 
 These header files must be kept in the same code directory.
 
-Thanks for using App! :)
+Thanks for using App!  :)
