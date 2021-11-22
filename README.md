@@ -1,6 +1,6 @@
 # CovidOOPS_
 
-This project is a web application which simulates registration and distribution of COVID vaccine.
+This project is a console based application which simulates registration and distribution of COVID vaccine.
 
 The `main.cpp` file is the file which we have to run to use this application. If you have GCC compiler installed, then simply execute the following command in shell.
 
